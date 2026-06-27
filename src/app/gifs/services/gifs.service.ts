@@ -52,9 +52,13 @@ export class GifService {
         }).pipe(
             map(({ data }) => GifMapper.mapGiphyItemsToGifArray(data)),
             tap(items => this.searchHistory.update(prev => ({
-                ...prev, 
+                ...prev,
                 [query.toLocaleLowerCase()]: items
             })))
         )
+    }
+
+    getHistoryGifs(query: string) {
+        return this.searchHistory()[query] ?? [];
     }
 }
